@@ -2,8 +2,9 @@ import { Form, Button, Input, message } from "antd";
 import { Link } from "react-router-dom";
 export default function FormLoginApplicant() {
     const [form] = Form.useForm();
-    const onFinish = () => {
+    const onFinish = (value) => {
         message.success("Submit success!");
+        console.log("form data: ", value)
     };
     const onFinishFailed = () => {
         message.error("Submit failed!");

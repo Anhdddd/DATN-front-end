@@ -1,10 +1,17 @@
+import Job from "@/views/Job";
+import JobDetail from "@/views/Job/JobDetail";
+import DefaultLayout from "@/layouts/DefaultLayout";
 export default {
     path: "/job",
-    element:  <div>Job</div>,
+    element:  <DefaultLayout />,
     children: [
         {
-            path: ":id",
-            element: <div>Job ID</div>,
-        }
+            path: "/job",
+            element: <Job />,
+        },
+        {
+            path: "/job/:id",
+            element: <JobDetail />,
+        },
     ]
 }
