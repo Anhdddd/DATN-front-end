@@ -5,7 +5,8 @@
 }
 
 * {
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
+  /* font-family: Inter, sans-serif; */
 }
 
 ::-webkit-scrollbar-track {
@@ -28,3 +29,30 @@
   transition: background-color 1000ms linear;
   border-radius: 4px;
 }
+
+ul {
+  list-style-type: disc !important;
+  padding-left: 1em;
+}
+
+ol {
+  list-style-type: decimal !important;
+  padding-left: 1em;
+}
+
+hr {
+  border: 0px;
+  border-top: 1px solid rgb(233, 233, 233);
+}
+
+/* .ProseMirror {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgb(238, 238, 238);
+  outline: none;
+  color: rgb(65, 65, 65);
+  font-size: 1.3rem;
+  width: 95%;
+  margin: 0.4rem auto;
+  overflow: auto;
+  height: 400px;
+} */
