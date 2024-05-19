@@ -1,5 +1,4 @@
-import Header from "./Header";
-import React from "react";
+import Header from "../Header";
 import EmployerNavigation from "./EmployerNavigation";
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -12,6 +11,9 @@ export default function EmployerLayout() {
             title = "Dashboard";
             break;
         case "/employer/campaign":
+            title = "Tạo tin tuyển dụng";
+            break;
+        case "/employer/campaign-management":
             title = "Chiến dịch tuyển dụng";
             break;
         case "/employer/cv-management":

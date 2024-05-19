@@ -51,11 +51,11 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-      'Neutrals-text-blue-500': "#A0C1FF",
-      'Neutrals-blue-600': "#0059FC",
-      'Neutrals-blue-700': "#00369B",
-      'Neutrals-blue-750': "#003699",
-      'Primary':  "#6F7882",
+        'Neutrals-text-blue-500': "#A0C1FF",
+        'Neutrals-blue-600': "#0059FC",
+        'Neutrals-blue-700': "#00369B",
+        'Neutrals-blue-750': "#003699",
+        'Primary': "#6F7882",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -75,7 +75,10 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-      }
+      },
+      fontFamily: {
+        'roboto': ['Roboto', 'sans-serif'],
+      },
     },
   },
   plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography'),],

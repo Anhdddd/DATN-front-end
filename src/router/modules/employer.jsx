@@ -1,7 +1,10 @@
 import Employer from '@/views/Employer'
-import EmployerLayout from '@/layouts/EmployerLayout'
+import EmployerLayout from '@/layouts/Employer/EmployerLayout'
 import Campaign from '@/views/Employer/Campaign'
 import CvManagement from '@/views/Employer/CvManagement'
+import Company from '@/views/Employer/Company'
+import Account from '@/views/Employer/Account'
+import CampainManagement from '@/views/Employer/CampaignManagement'
 export default {
     path: "/employer",
     element: <EmployerLayout />,
@@ -19,16 +22,20 @@ export default {
             element: <Campaign />,
         },
         {
+            path: "campaign-management",
+            element: <CampainManagement />,
+        },
+        {
             path: "cv-management",
             element: <CvManagement />,
         },
         {
             path: "company",
-            element: <div>Company</div>,
+            element: <Company />,
         },
         {
             path: "setting",
-            element: <div>Setting</div>,
+            element: <Account />,
         },
     ]
 }

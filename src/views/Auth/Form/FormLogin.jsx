@@ -1,10 +1,44 @@
 import { Form, Button, Input, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "@/api/auth/login";
+import { toast, Bounce } from "react-toastify";
 export default function FormLoginApplicant() {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
-    const onFinish = (value) => {
-        message.success("Submit success!");
-        console.log("form data: ", value)
+
+    const onFinish = async (value) => {
+        const res = await login(value);
+        if (res) {
+            localStorage.setItem("user_id", JSON.stringify(res.id));
+            localStorage.setItem("access-token", res.token);
+            localStorage.setItem("role", res.role);
+            toast.success("Đăng nhập thành công", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            if (res.role === 0) navigate("/admin");
+            else if (res.role === 1) navigate("/employer");
+            else navigate("/");
+        } else {
+            toast.error("Đăng nhập thất bại", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
     };
     const onFinishFailed = () => {
         message.error("Submit failed!");
@@ -45,7 +79,7 @@ export default function FormLoginApplicant() {
                         },
                         {
                             type: "string",
-                            min: 6,
+                            min: 3,
                         },
                     ]}
                 >
@@ -66,7 +100,7 @@ export default function FormLoginApplicant() {
                         },
                         {
                             type: "string",
-                            min: 6,
+                            min: 3,
                         },
                     ]}
                 >

@@ -1,10 +1,48 @@
 import { Form, Button, Input, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, Bounce } from "react-toastify";
+import { register } from "@/api/auth/register";
 
 export default function FormSignUpApplicant() {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
-    const onFinish = () => {
-        message.success("Submit success!");
+    const onFinish = async (value) => {
+        const data = {
+            role: 2,
+            fullName: value.fullName,
+            email: value.email,
+            password: value.password,
+        };
+        const res = await register(data);
+        if (res) {
+            toast.success("Đăng ký thành công", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            localStorage.setItem("user_id", JSON.stringify(res.id));
+            localStorage.setItem("access-token", res.token);
+            localStorage.setItem("role", res.role);
+            navigate("/");
+        } else {
+            toast.error("Email đã được đăng ký", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
     };
     const onFinishFailed = () => {
         message.error("Submit failed!");
@@ -38,7 +76,7 @@ export default function FormSignUpApplicant() {
                     </div>
                 </div>
                 <Form.Item
-                    name="name"
+                    name="fullName"
                     label="Họ và tên"
                     rules={[
                         {

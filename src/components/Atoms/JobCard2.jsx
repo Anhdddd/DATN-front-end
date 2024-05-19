@@ -1,21 +1,24 @@
 import { Tooltip } from "antd";
-import { Button } from "antd"
-import { Link } from "react-router-dom"
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 export default function JobCard2(props) {
     return (
-        <Link to={'/job/' + 12} className="flex p-3 rounded-sm transition-all hover:bg-white border h-[147px] w-full bg-blue-50">
+        <Link
+            to={"/job/" + 12}
+            className={`flex p-3 rounded-sm transition-all bg-white hover:bg-slate-100 border group min-h-[160px] w-full group ${props.className}`}
+        >
             <div className="flex-shrink-0">
                 <img
                     src={props.img}
                     alt="job"
-                    className="w-[120px] h-[120px]"
+                    className="w-[120px] h-[120px] border border-gray-200 rounded-sm"
                 />
             </div>
             <div className="flex flex-col ml-3 pt-2 justify-between w-full">
                 <div className="flex justify-between">
                     <div className="flex flex-col gap-2">
                         <Tooltip title={props.title} placement="top">
-                            <h3 className="text-[17px] font-semibold font-sans cursor-pointer hover:text-blue-700">
+                            <h3 className="text-[17px] font-semibold font-sans cursor-pointer group-hover:text-blue-700">
                                 {props.title}
                             </h3>
                         </Tooltip>
@@ -24,6 +27,11 @@ export default function JobCard2(props) {
                                 {props.company}
                             </p>
                         </Tooltip>
+                        {props.typeCard === "job-saved" && (
+                            <div className="text-[#424E5C] text-sm relative bottom-1">
+                                Đã lưu: 15/05/2024 - 22:23
+                            </div>
+                        )}
                     </div>
                     <div className="text-md font-semibold text-blue-700">
                         {props.salary}
@@ -38,7 +46,14 @@ export default function JobCard2(props) {
                             Còn {11} ngày để ứng tuyển
                         </p>
                     </div>
-                    <div className=""><Button type="primary" className="h-[28px] w-[94px] text-xs">Ứng tuyển</Button></div>
+                    <div className="">
+                        <Button
+                            type="primary"
+                            className="h-[28px] w-[94px] rounded-sm text-xs"
+                        >
+                            Ứng tuyển
+                        </Button>
+                    </div>
                 </div>
             </div>
         </Link>
