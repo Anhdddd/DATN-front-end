@@ -67,7 +67,9 @@ export default function CompanyIntroduce() {
                     </section>
 
                     <section className="w-full flex flex-col gap-2 px-4 py-5 border-t">
-                        <h1 className="text-lg font-medium mb-4">Vị trí đang tuyển dụng</h1>
+                        <h1 className="text-lg font-medium mb-4">
+                            Vị trí đang tuyển dụng
+                        </h1>
                         <JobCard2
                             img="https://cdn-new.topcv.vn/unsafe/200x/https://static.topcv.vn/company_logos/to-chuc-giao-duc-va-dao-tao-apollo-viet-nam-5dd4bce9c2fa0.jpg"
                             title="Nhân viên kinh doanh"
@@ -123,6 +125,14 @@ export default function CompanyIntroduce() {
                             </p>
                         </div>
                     </div>
+                    {/* <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.8425047324727!2d108.14729407385367!3d16.073660584606472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314218d68dff9545%3A0x714561e9f3a7292c!2sDa%20Nang%20University%20of%20Science%20and%20Technology!5e0!3m2!1sen!2s!4v1715933133161!5m2!1sen!2s"
+                        width="100%"
+                        height="450"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe> */}
                 </aside>
             </main>
         </div>

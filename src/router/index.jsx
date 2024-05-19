@@ -4,6 +4,7 @@ import company from "./modules/company.jsx";
 import auth from "./modules/auth.jsx";
 import home from "./modules/home.jsx";
 import employer from "./modules/employer.jsx";
+import admin from "./modules/admin.jsx";
 
 const routes = [
     job,
@@ -12,6 +13,7 @@ const routes = [
     ...auth,
     home,
     employer,
+    admin
 ];
 
 export default routes;

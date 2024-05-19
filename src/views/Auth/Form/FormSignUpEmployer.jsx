@@ -5,6 +5,8 @@ import { Select } from "antd";
 import { Image, Upload } from "antd";
 import { useState } from "react";
 import { MdOutlineFileUpload } from "react-icons/md";
+import { register } from "@/api/auth/register";
+import { createCompany } from "@/api/company/createCompany";
 
 const steps = [
     {
@@ -21,26 +23,16 @@ const steps = [
     },
 ];
 
-const jobPositions = [
-    { value: "Intern", title: "Thực tập" },
-    { value: "Employee", title: "Nhân viên" },
-    { value: "TeamLeader", title: "Trưởng nhóm" },
-    { value: "DeputyManager", title: "Phó phòng" },
-    { value: "Manager", title: "Trưởng phòng" },
-    { value: "DeputyDirector", title: "Phó giám đốc" },
-    { value: "Director", title: "Giám đốc" },
-];
-
 export default function FormSignUpEmployer() {
     const [form] = Form.useForm();
     const [current, setCurrent] = useState(0);
     const [imageUrl, setImageUrl] = useState(
         "https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/hinh-anh-thien-nhien-3d-tuyet-dep-003.jpg"
     );
+    const [employerData, setEmployerData] = useState({});
 
     const handleUpload = (file) => {
         const reader = new FileReader();
-
         reader.onloadend = () => {
             if (reader.error) {
                 console.error(
@@ -49,6 +41,7 @@ export default function FormSignUpEmployer() {
                 );
             } else {
                 setImageUrl(reader.result);
+                console.log("image: ", reader.result);
             }
         };
 
@@ -65,9 +58,39 @@ export default function FormSignUpEmployer() {
         setCurrent(current - 1);
     };
 
-    const onFinish = () => {
-        message.success("Submit success!");
+    const onSubmitNext = (values) => {
+        setEmployerData({ ...employerData, ...values });
         next();
+    };
+    const onFinish = async (values) => {
+        const dataEmployer = {
+            email: employerData.email,
+            password: employerData.password,
+            fullName: employerData.fullName,
+            phoneNumber: employerData.phoneNumber,
+            facebookLink: employerData.facebookLink,
+            role: 1,
+        };
+        const resEmployer = await register(dataEmployer);
+        if (resEmployer) {
+            localStorage.setItem("user_id", JSON.stringify(resEmployer.id));
+            localStorage.setItem("access-token", resEmployer.token);
+            localStorage.setItem("role", resEmployer.role);
+            const dataCompany = {
+                name: values["name-company"],
+                address: values.address,
+                description: values.description,
+                logo: imageUrl,
+            };
+            const resCompany = await createCompany(dataCompany);
+            if (resCompany) {
+                message.success("Đăng ký thành công!");
+            } else {
+                message.error("Đăng ký thất bại!");
+            }
+        } else {
+            message.error("Đăng ký thất bại!");
+        }
     };
     const onFinishFailed = () => {
         message.error("Submit failed!");
@@ -97,32 +120,19 @@ export default function FormSignUpEmployer() {
                         ĐĂNG KÝ THÔNG TIN NHÀ TUYỂN DỤNG
                     </h2>
                 </div>
-                <Steps current={current} items={items} className="font-semibold" />
+                <Steps
+                    current={current}
+                    items={items}
+                    className="font-semibold"
+                />
                 {current === 0 && (
                     <Form
                         form={form}
                         layout="vertical"
-                        onFinish={onFinish}
+                        onFinish={onSubmitNext}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
-                        <Form.Item
-                            name="username"
-                            label="Tài khoản đăng nhập:"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Vui lòng nhập username của bạn!",
-                                },
-                            ]}
-                        >
-                            <Input
-                                size="large"
-                                className="rounded-sm text-sm"
-                                placeholder="Username( Tài khoản đăng nhập)"
-                            />
-                        </Form.Item>
-
                         <Form.Item
                             name="email"
                             label="Email đăng nhập:"
@@ -200,12 +210,12 @@ export default function FormSignUpEmployer() {
                     <Form
                         form={form}
                         layout="vertical"
-                        onFinish={onFinish}
+                        onFinish={onSubmitNext}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
                         <Form.Item
-                            name="name"
+                            name="fullName"
                             label="Họ tên:"
                             rules={[
                                 {
@@ -222,7 +232,7 @@ export default function FormSignUpEmployer() {
                         </Form.Item>
 
                         <Form.Item
-                            name="phone"
+                            name="phoneNumber"
                             label="Số điện thoại:"
                             rules={[
                                 {
@@ -239,20 +249,15 @@ export default function FormSignUpEmployer() {
                             />
                         </Form.Item>
 
-                        <Form.Item name="facebook" label="Facebook (Nếu có):">
+                        <Form.Item
+                            name="facebookLink"
+                            label="Facebook (Nếu có):"
+                        >
                             <Input
                                 size="large"
                                 className="rounded-sm text-sm"
                                 placeholder="Link facebook nếu có"
                             />
-                        </Form.Item>
-
-                        <Form.Item name="jobTitle" label="Vị trí công việc:">
-                            <Select
-                                size="large"
-                                options={jobPositions}
-                                onChange={(value) => console.log(value)}
-                            ></Select>
                         </Form.Item>
 
                         <Form.Item>
